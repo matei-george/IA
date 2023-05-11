@@ -1,0 +1,10 @@
+4
+Bucuresti
+Cluj-Napoca
+Iasi
+Timisoara
+0 500 400 700
+500 0 300 800
+400 300 0 900
+700 800 900 0
+2
