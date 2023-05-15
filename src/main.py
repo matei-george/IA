@@ -1,6 +1,12 @@
 from helpers import *
 import time
 
+# TODO -> De facut fisiere text pentru fiecare algoritm in parte (output + numeAlgoritm +.txt)
+# TODO -> De restructurat fisiere text de intrare pentru fiecare algoritm in parte (intpu + numeAlgoritm + .txt)
+# TODO -> De restructurat algorimtii :
+# TODO -> Script pentru facut plot pentru output-ul algoritmului in parte
+# TODO -> Problema reginelor folosind AG
+
 
 def afisareMeniu():
     print('\n\n\n\n')
