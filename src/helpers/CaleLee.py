@@ -1,5 +1,6 @@
-# Algoritmul lui Lee
+# Algoritmul lui Lee cu ajutorul caruia gasim cea mai scurta cale dintre doua puncte din matrice.
 from collections import deque
+import time
 
 
 def lee_algorithm(matrix, start, end):
@@ -55,18 +56,23 @@ def get_shortest_path(prev, start, end):
     return path
 
 
-def call():
-    matrix = [
-        [-1, 0, -1, 0, -1, 0, 0, -1],
-        [-1, -2, -1, 0, -1, 0, 0, -1],
-        [-1, 0, -1, 0, -1, -1, 0, -1],
-        [-1, 0, 0, 0, 0, 0, 0, -1],
-        [-1, 0, -1, -1, -1, 0, 0, -1],
-        [-1, 0, 0, 0, 0, 0, 0, -1],
-        [-1, 0, -1, 0, -1, 0, -2, -1],
-        [-1, 0, -1, 0, -1, -1, 0, -1]
-    ]
-    start = (1, 1)
-    end = (6, 6)
+def execute():
+    start_time = time.time()
+    matrix = []
+    start = None
+    end = None
+    with open('src\data\input-CaleLee.txt') as f:
+        for line_num, line in enumerate(f):
+            if line_num < 8:
+                row = [int(x) for x in line.strip().split(',')]
+                matrix.append(row)
+            elif line_num == 8:
+                start = tuple([int(x) for x in line.strip().split(',')])
+            elif line_num == 9:
+                end = tuple([int(x) for x in line.strip().split(',')])
     shortest_path = lee_algorithm(matrix, start, end)
-    print(shortest_path)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    with open('src/data/output-CaleLee.txt', "w") as f:
+        print(shortest_path, file=f)
+        print("{:.5f}".format(elapsed_time), file=f)

@@ -1,5 +1,6 @@
 # Rezolvarea Problemei reginelor folosind metoda alpinistului
 import random
+import time
 
 
 def generate_initial_state(n):
@@ -46,8 +47,15 @@ def hill_climbing(n):
         current_score = neighbor_score
 
 
-def call():
-    print('Dati dimensiunea tablei')
-    n = int(input())
-    solution = hill_climbing(n)
-    print(solution)
+def execute():
+    start_time = time.time()
+    inputValue = None
+    with open("src\data\input-regineAlpinist.txt", "r") as f:
+        inputValue = f.read()
+        inputValue = int(inputValue)
+    solution = hill_climbing(inputValue)
+    end_time = time.time()
+    elapsed_time = end_time-start_time
+    with open("src\data\output-regineAlpinist.txt", "w") as f:
+        print(solution, file=f)
+        print("{:.5f}".format(elapsed_time), file=f)

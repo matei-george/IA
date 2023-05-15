@@ -1,3 +1,4 @@
+# Problema reginelor folosind calirea simlulata
 import time
 import random
 import math
@@ -11,15 +12,15 @@ class Board(object):
         self.queens = queens.copy()  # Not aliasing!
 
     def display(self):
-        """Print the board."""
-        for r in range(len(self.queens)):
-            for c in range(len(self.queens)):
-                if self.queens[c] == r:
-                    print('Q', end=' ')
-                else:
-                    print('-', end=' ')
-            print()
-        print()
+        with open("src\data\output-regineCaiSim.txt", "w") as f:
+            for r in range(len(self.queens)):
+                for c in range(len(self.queens)):
+                    if self.queens[c] == r:
+                        print('Q', end=' ', file=f)
+                    else:
+                        print('-', end=' ', file=f)
+                print(file=f)
+            print(file=f)
 
     def moves(self):
         """Return a list of possible moves given the current placements."""
@@ -72,12 +73,15 @@ class Agent(object):
         return current_solution.moves()
 
 
-def call():
-    """Create a problem, solve it with simulated annealing, and console-animate."""
-
+def execute():
+    start_time = time.time()
+    inputValue = None
+    with open("src\data\input-regineCaiSim.txt", "r") as f:
+        inputValue = f.read()
+        inputValue = int(inputValue)
     queens = dict()
-    for col in range(8):
-        row = random.choice(range(8))
+    for col in range(inputValue):
+        row = random.choice(range(inputValue))
         queens[col] = row
 
     board = Board(queens)
@@ -91,3 +95,7 @@ def call():
         board = board.neighbor(move)
         time.sleep(0.1)
         board.display()
+    end_time = time.time()
+    elapsed_time = end_time-start_time
+    with open("src\data\output-regineCaiSim.txt", "a") as f:
+        print("{:.5f}".format(elapsed_time), file=f)

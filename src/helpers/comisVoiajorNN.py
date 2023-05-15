@@ -45,16 +45,25 @@ def nearest_neighbour(adjacency_list, start_city):
     return visited_cities, total_distance, execution_time
 
 
-def call():
-    adjacency_list = [
-        [(1, 10), (2, 15), (3, 20)],
-        [(0, 10), (2, 35), (3, 25)],
-        [(0, 15), (1, 35), (3, 30)],
-        [(0, 20), (1, 25), (2, 30)]
-    ]
+def execute():
+    start_time = time.time()
+    # Read the contents of the file
+    with open("src\data\input-comisVoiajorNN.txt", 'r') as f:
+        file_contents = f.read()
+
+    adjacency_list = []
+    for line in file_contents.split('\n'):
+        if not line.strip():
+            continue
+        adjacency_list.append([tuple(map(int, pair.split(',')))
+                               for pair in line.split()])
+
     start_city = 0
     visited_cities, total_distance, execution_time = nearest_neighbour(
         adjacency_list, start_city)
-    print("Drumul minim gasit:", visited_cities)
-    print("Distanta totala:", total_distance)
-    print("Timpul de executie:", execution_time, "secunde")
+    end_time = time.time()
+    elapsed_time = end_time-start_time
+    with open('src\data\output-comisVoiajorNN.txt', "w") as f:
+        print("Drumul minim gasit:", visited_cities, file=f)
+        print("Distanta totala:", total_distance, file=f)
+        print("{:.5f}".format(elapsed_time), file=f)

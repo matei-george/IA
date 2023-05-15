@@ -1,2 +1,2 @@
-__all__ = ["recapitulare", "regineBacktracking",
-           "regineLee", "regineAlpinist", "comisVoiajorClasic", "comisVoiajorNN", "nQueens"]
+__all__ = ['CaleLee', 'comisVoiajorNN',
+           'regineAG', 'regineAlpinist', 'regineCaiSim']
