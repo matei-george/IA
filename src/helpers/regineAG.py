@@ -6,7 +6,7 @@ def fitness(individual):
     conflicts = 0
     n = len(individual)
     for i in range(n):
-        for j in range(i + 1, n):
+        for j in range(i + 1, n): # type: ignore
             if individual[i] == individual[j]:
                 conflicts += 1
             elif abs(i - j) == abs(individual[i] - individual[j]):
