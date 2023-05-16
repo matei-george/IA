@@ -57,11 +57,10 @@ def get_shortest_path(prev, start, end):
 
 
 def execute():
-    start_time = time.time()
     matrix = []
     start = None
     end = None
-    with open('src\data\input-CaleLee.txt') as f:
+    with open('src/data/input-CaleLee.txt') as f:
         for line_num, line in enumerate(f):
             if line_num < 8:
                 row = [int(x) for x in line.strip().split(',')]
@@ -70,9 +69,11 @@ def execute():
                 start = tuple([int(x) for x in line.strip().split(',')])
             elif line_num == 9:
                 end = tuple([int(x) for x in line.strip().split(',')])
+    start_time = time.time()
     shortest_path = lee_algorithm(matrix, start, end)
     end_time = time.time()
     elapsed_time = end_time - start_time
     with open('src/data/output-CaleLee.txt', "w") as f:
         print(shortest_path, file=f)
         print("{:.5f}".format(elapsed_time), file=f)
+

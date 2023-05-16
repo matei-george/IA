@@ -12,7 +12,7 @@ class Board(object):
         self.queens = queens.copy()  # Not aliasing!
 
     def display(self):
-        with open("src\data\output-regineCaiSim.txt", "w") as f:
+        with open("src/data/output-regineCaiSim.txt", "w") as f:
             for r in range(len(self.queens)):
                 for c in range(len(self.queens)):
                     if self.queens[c] == r:
@@ -76,7 +76,7 @@ class Agent(object):
 def execute():
     start_time = time.time()
     inputValue = None
-    with open("src\data\input-regineCaiSim.txt", "r") as f:
+    with open("src/data/input-regineCaiSim.txt", "r") as f:
         inputValue = f.read()
         inputValue = int(inputValue)
     queens = dict()
@@ -97,5 +97,5 @@ def execute():
         board.display()
     end_time = time.time()
     elapsed_time = end_time-start_time
-    with open("src\data\output-regineCaiSim.txt", "a") as f:
+    with open("src/data/output-regineCaiSim.txt", "a") as f:
         print("{:.5f}".format(elapsed_time), file=f)

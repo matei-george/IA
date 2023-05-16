@@ -30,6 +30,7 @@ def nearest_neighbour(adjacency_list, start_city):
         nearest_city, nearest_distance = find_nearest_unvisited_city(
             current_city, unvisited_cities, adjacency_list)
         visited_cities.append(nearest_city)
+        # FIXME -> Nu functioneaza linia 34
         unvisited_cities.remove(nearest_city)
         total_distance += nearest_distance
         current_city = nearest_city
@@ -46,9 +47,9 @@ def nearest_neighbour(adjacency_list, start_city):
 
 
 def execute():
-    start_time = time.time()
+
     # Read the contents of the file
-    with open("src\data\input-comisVoiajorNN.txt", 'r') as f:
+    with open("src/data/input-comisVoiajorNN.txt", 'r') as f:
         file_contents = f.read()
 
     adjacency_list = []
@@ -57,13 +58,13 @@ def execute():
             continue
         adjacency_list.append([tuple(map(int, pair.split(',')))
                                for pair in line.split()])
-
+    start_time = time.time()
     start_city = 0
     visited_cities, total_distance, execution_time = nearest_neighbour(
         adjacency_list, start_city)
     end_time = time.time()
     elapsed_time = end_time-start_time
-    with open('src\data\output-comisVoiajorNN.txt', "w") as f:
+    with open('src/data/output-comisVoiajorNN.txt', "w") as f:
         print("Drumul minim gasit:", visited_cities, file=f)
         print("Distanta totala:", total_distance, file=f)
         print("{:.5f}".format(elapsed_time), file=f)

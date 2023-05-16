@@ -48,14 +48,14 @@ def hill_climbing(n):
 
 
 def execute():
-    start_time = time.time()
     inputValue = None
-    with open("src\data\input-regineAlpinist.txt", "r") as f:
+    with open("src/data/input-regineAlpinist.txt", "r") as f:
         inputValue = f.read()
         inputValue = int(inputValue)
+    start_time=time.time()
     solution = hill_climbing(inputValue)
     end_time = time.time()
     elapsed_time = end_time-start_time
-    with open("src\data\output-regineAlpinist.txt", "w") as f:
+    with open("src/data/output-regineAlpinist.txt", "w") as f:
         print(solution, file=f)
         print("{:.5f}".format(elapsed_time), file=f)

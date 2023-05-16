@@ -1,155 +1,69 @@
-# Problema reginelor folosind Algoritmi Generici
-from time import time
+import random
+import time
 
-counter = 0
-FIRST_GEN = 500
+# Fitness function to calculate the fitness of an individual
+def fitness(individual):
+    conflicts = 0
+    n = len(individual)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if individual[i] == individual[j]:
+                conflicts += 1
+            elif abs(i - j) == abs(individual[i] - individual[j]):
+                conflicts += 1
+    return 1 / (conflicts + 1)
 
+# Selection function to select the fittest individuals
+def selection(population, fitness_fn):
+    fitnesses = [fitness_fn(individual) for individual in population]
+    total_fitness = sum(fitnesses)
+    probabilities = [fitness / total_fitness for fitness in fitnesses]
+    selected = random.choices(population, probabilities, k=len(population))
+    return selected
 
-class GAChess:
-    def __init__(self, n):
-        self.board = self.createBoard(n)
-        self.solutions = []
-        self.size = n
-        self.env = []
-        self.goal = None
-        self.goalIndex = -1
+# Crossover function to create offspring from parents
+def crossover(parents):
+    n = len(parents[0])
+    pivot = random.randint(0, n - 1)
+    offspring = []
+    for i in range(len(parents)):
+        parent1 = parents[i]
+        parent2 = parents[(i + 1) % len(parents)]
+        child = parent1[:pivot] + parent2[pivot:]
+        offspring.append(child)
+    return offspring
 
-    def createBoard(self, n):
-        board = [[0 for i in range(n)] for j in range(n)]
-        return board
+# Mutation function to introduce random changes in individuals
+def mutation(individual):
+    n = len(individual)
+    pivot = random.randint(0, n - 1)
+    gene = random.randint(0, n - 1)
+    individual[pivot] = gene
+    return individual
 
-    def setBoard(self, board, gen):
-        for i in range(self.size):
-            board[gen[i]][i] = 1
+# Genetic algorithm to solve the n-queens problem
+def genetic_algorithm(n, population_size, generations):
+    population = [[random.randint(0, n - 1) for _ in range(n)] for _ in range(population_size)]
+    for i in range(generations):
+        selected = selection(population, fitness)
+        offspring = crossover(selected)
+        mutated = [mutation(individual) for individual in offspring]
+        population = selected + mutated
+    fittest_individual = max(population, key=fitness)
+    return fittest_individual
 
-    def generateDNA(self):
-        from random import shuffle
-        DNA = list(range(self.size))
-        shuffle(DNA)
-        while DNA in self.env:
-            shuffle(DNA)
-        return DNA
-
-    def initializeFirstGeneration(self, val):
-        for i in range(val):
-            self.env.append(self.generateDNA())
-
-    def utilityFunction(self, gen):
-        hits = 0
-        board = self.createBoard(self.size)
-        self.setBoard(board, gen)
-        col = 0
-
-        for dna in gen:
-            try:
-                for i in range(col-1, -1, -1):
-                    if board[dna][i] == 1:
-                        hits += 1
-            except IndexError:
-                print(gen)
-                quit()
-            for i, j in zip(range(dna-1, -1, -1), range(col-1, -1, -1)):
-                if board[i][j] == 1:
-                    hits += 1
-            for i, j in zip(range(dna+1, self.size, 1), range(col-1, -1, -1)):
-                if board[i][j] == 1:
-                    hits += 1
-            col += 1
-        return hits
-
-    def isSolution(self, gen):
-        if self.utilityFunction(gen) == 0:
-            return True
-        return False
-
-    def crossover(self, firstGen, secondGen):
-        for i in range(1, len(firstGen)):
-            if abs(firstGen[i-1] - firstGen[i]) < 2:
-                firstGen[i], secondGen[i] = secondGen[i], firstGen[i]
-            if abs(secondGen[i-1] - secondGen[i]) < 2:
-                firstGen[i], secondGen[i] = secondGen[i], firstGen[i]
-
-    def mutation(self, gen):
-        bound = self.size//2
-        from random import randint as rand
-        leftSideIndex = rand(0, bound)
-        RightSideIndex = rand(bound+1, self.size-1)
-        newGen = []
-        for dna in gen:
-            if dna not in newGen:
-                newGen.append(dna)
-        for i in range(self.size):
-            if i not in newGen:
-                newGen.append(i)
-
-        gen = newGen
-        gen[leftSideIndex], gen[RightSideIndex] = gen[RightSideIndex], gen[leftSideIndex]
-        return gen
-
-    def reproduce(self):
-        for i in range(1, len(self.env), 2):
-            firstGen = self.env[i-1][:]
-            secondGen = self.env[i][:]
-            self.crossover(firstGen, secondGen)
-            firstGen = self.mutation(firstGen)
-            secondGen = self.mutation(secondGen)
-            self.env.append(firstGen)
-            self.env.append(secondGen)
-
-    def makeSelection(self):
-        genUtilities = []
-        newEnv = []
-
-        for gen in self.env:
-            genUtilities.append(self.utilityFunction(gen))
-            if min(genUtilities) == 0:
-                self.goalIndex = genUtilities.index(min(genUtilities))
-                self.goal = self.env[self.goalIndex]
-                return self.env
-
-        while len(newEnv) < self.size:
-            minUtil = min(genUtilities)
-            minIndex = genUtilities.index(minUtil)
-            newEnv.append(self.env[minIndex])
-            genUtilities.remove(minUtil)
-            self.env.remove(self.env[minIndex])
-
-        return newEnv
-
-    def solveGA(self):
-     # init
-        self.initializeFirstGeneration(FIRST_GEN)
-    # what if randomly we already generated solution in the environment?
-    # for gen in self.env:
-    # if self.isSolution(gen):
-    # return gen
-    # start algo!
-        count = 0
-        while True:
-            self.reproduce()
-            self.env = self.makeSelection()
-
-            count += 1
-            if self.goalIndex >= 0:
-                try:
-                    print(count)
-                    return self.goal
-                except IndexError:
-                    print(self.goalIndex)
-            else:
-                continue
-
-
-# TODO -> Citire si scriere din fisier cu functia execute
 def execute():
-    # FIXME -> Dureaza prea mult executia
-    dimension = int(input("Introduceti dimensiunea tablei: "))
-    chess = GAChess(dimension)
-
-    start_time = time.time()
-    solution = chess.solveGA()
-    end_time = time.time()
-    elapsed_time = end_time-start_time
-
-    print("Solution (GA):")
-    print(solution)
+    with open("src/data/input-regineAG.txt",'r') as f:
+        inputValue=f.readline()
+        population_size=f.readline()
+        generations=f.readline()
+        inputValue=int(inputValue)
+        population_size=int(population_size)
+        generations=int(generations)
+    start_time=time.time()
+    solution = genetic_algorithm(inputValue,population_size,generations)
+    end_time=time.time()
+    elapsed_time=end_time-start_time
+    with open("src/data/output-regineAG.txt",'w') as f:
+        print(solution,file=f)
+        print("{:.5f}".format(elapsed_time), file=f)
