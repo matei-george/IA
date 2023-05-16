@@ -4,6 +4,10 @@ import time
 
 # TODO -> Date mai mari de intrare.
 # TODO -> Reformatare text pentru finalizarea executiei programului.
+# TODO -> Implementare timer de scurta durata pentru program
+# TODO -> Array cu tuple pereche titlu algoritm - valoare care sa fie create in momentul fetch-ului datelor din fisier
+# TODO -> TODO-ul anterior cu Array sortat in functie de timpul de executie
+# TODO -> Plot facut dupa elementele array-ului
 
 def afisareMeniu():
     print('/n/n/n/n')
