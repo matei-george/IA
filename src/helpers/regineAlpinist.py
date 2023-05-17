@@ -24,7 +24,7 @@ def get_best_neighbor(state):
     n = len(state)
     best_state = state
     best_score = count_conflicts(state)
-    for i in range(n):
+    for i in range(n): # type: ignore
         for j in range(i+1, n):
             new_state = state.copy()
             new_state[i], new_state[j] = new_state[j], new_state[i]

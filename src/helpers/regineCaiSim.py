@@ -13,7 +13,7 @@ class Board(object):
 
     def display(self):
         with open("src/data/output-regineCaiSim.txt", "w") as f:
-            for r in range(len(self.queens)):
+            for r in range(len(self.queens)): # type: ignore
                 for c in range(len(self.queens)):
                     if self.queens[c] == r:
                         print('Q', end=' ', file=f)

@@ -30,7 +30,6 @@ def nearest_neighbour(adjacency_list, start_city):
         nearest_city, nearest_distance = find_nearest_unvisited_city(
             current_city, unvisited_cities, adjacency_list)
         visited_cities.append(nearest_city)
-        # FIXME -> Nu functioneaza linia 34
         unvisited_cities.remove(nearest_city)
         total_distance += nearest_distance
         current_city = nearest_city
@@ -47,11 +46,9 @@ def nearest_neighbour(adjacency_list, start_city):
 
 
 def execute():
-
     # Read the contents of the file
     with open("src/data/input-comisVoiajorNN.txt", 'r') as f:
         file_contents = f.read()
-
     adjacency_list = []
     for line in file_contents.split('\n'):
         if not line.strip():
