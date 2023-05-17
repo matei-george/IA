@@ -4,10 +4,6 @@ import time
 import os
 import array
 
-# TODO -> Dictonar cu tuple pereche titlu algoritm - valoare care sa fie create in momentul fetch-ului datelor din fisier
-# TODO -> TODO-ul anterior cu Dictionarul sortat in functie de timpul de executie
-# TODO -> Plot facut dupa elementele dictionarului
-
 def afisareMeniu():
     while (True):
         os.system('cls')

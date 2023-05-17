@@ -30,7 +30,6 @@ def nearest_neighbour(adjacency_list, start_city):
         nearest_city, nearest_distance = find_nearest_unvisited_city(
             current_city, unvisited_cities, adjacency_list)
         visited_cities.append(nearest_city)
-        # FIXME -> Nu functioneaza linia 34
         unvisited_cities.remove(nearest_city)
         total_distance += nearest_distance
         current_city = nearest_city
