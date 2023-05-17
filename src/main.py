@@ -92,9 +92,10 @@ def selectareOptiune():
   / __(_)__  ___ _/ (_)__ ___ _/_/ 
  / _// / _ \/ _ `/ / /_ // _ `/ __/ 
 /_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
-            time.sleep(10)
+            time.sleep(5)
         case 7:
             print('Murarasu Matei - George, grupa 3131b')
+            time.sleep(5)
         case 8:
             print('Iesire din aplicatie...')
             exit()
