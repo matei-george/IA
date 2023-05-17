@@ -2,6 +2,7 @@ from helpers import *
 import matplotlib.pyplot as plt
 import time
 import os
+import array
 
 # TODO -> Dictonar cu tuple pereche titlu algoritm - valoare care sa fie create in momentul fetch-ului datelor din fisier
 # TODO -> TODO-ul anterior cu Dictionarul sortat in functie de timpul de executie
@@ -104,39 +105,32 @@ def createPlot():
     plotDictionar={}
     with open("src/data/output-CaleLee.txt",'r') as f:
         line=f.readlines()
-        plotCaleLee=line[-1].strip()
-        plotDictionar['Cale Lee']=plotCaleLee
+        plotDictionar['Cale Lee']=float(line[-1].strip())
         f.close()
     with open("src/data/output-regineAlpinist.txt",'r') as f:
         line=f.readlines()
-        plotRegineAlpinist=line[-1].strip()
-        plotDictionar['regineAlpinist']=plotRegineAlpinist
+        plotDictionar['regineAlpinist']=float(line[-1].strip())
         f.close()
     with open("src/data/output-regineCaiSim.txt",'r') as f:
         line=f.readlines()
-        plotRegineCaiSim=line[-1].strip()
-        plotDictionar['regineCaiSim']=plotRegineCaiSim
+        plotDictionar['regineCaiSim']=float(line[-1].strip())
         f.close()
     with open("src/data/output-comisVoiajorNN.txt",'r') as f:
         line=f.readlines()
-        plotComisVoiajorNN=line[-1].strip()
-        plotDictionar['ComisVoiajorNN']=plotComisVoiajorNN
+        plotDictionar['comisVoiajorNN']=float(line[-1].strip())
         f.close()
     with open("src/data/output-regineAG.txt",'r') as f:
         line=f.readlines()
-        plotRegineAG=line[-1].strip()
-        plotDictionar['regineAG']=plotRegineAG
+        plotDictionar['regineAG']=float(line[-1].strip())
         f.close()
-    dictionarSortat=dict(sorted(plotDictionar.items(),key=lambda item: item[1]))
-    print(dictionarSortat)    
-    # plt.figure(figsize=(10,6))
-    # timpi_executie=[plotCaleLee,plotRegineAlpinist,plotComisVoiajorNN,plotRegineAG,plotRegineCaiSim]
-    # index=[1,2,3,4,5]
-    # labels=["Cale Lee","regineAplinist","ComisVoiajorNN","regineAG","regineCaiSim"]
-    # plt.bar(index,timpi_executie,tick_label=labels,width=0.3,color=['red','black'])
-    # plt.xlabel('Numele algoritmului')
-    # plt.ylabel('Timpul de executie (s)')
-    # plt.title("Timpi de executie Algoritmi Inteligenta Artificiala")
-    # plt.show()
+    plt.figure(figsize=(10,6))
+    timpi_executie=list(plotDictionar.values())
+    index=[1,2,3,4,5]
+    labels=list(plotDictionar.keys())
+    plt.bar(index,timpi_executie,tick_label=labels,width=0.2,color='lightseagreen')
+    plt.xlabel('Numele algoritmului')
+    plt.ylabel('Timpul de executie (s)')
+    plt.title("Timpi de executie Algoritmi Inteligenta Artificiala")
+    plt.show()
 
 afisareMeniu()
