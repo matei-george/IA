@@ -91,7 +91,7 @@ def selectareOptiune():
   / __(_)__  ___ _/ (_)__ ___ _/_/ 
  / _// / _ \/ _ `/ / /_ // _ `/ __/ 
 /_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
-            time.sleep(3)
+            time.sleep(10)
         case 7:
             print('Murarasu Matei - George, grupa 3131b')
         case 8:
@@ -101,39 +101,42 @@ def selectareOptiune():
             print('Optiune invalida! Mai incercati o data!')
 
 def createPlot():
-    plotCaleLee=None;
-    plotRegineAlpinist=None;
-    plotRegineCaiSim=None;
-    plotComisVoiajorNN=None;
-    plotRegineAG=None;
+    plotDictionar={}
     with open("src/data/output-CaleLee.txt",'r') as f:
         line=f.readlines()
         plotCaleLee=line[-1].strip()
+        plotDictionar['Cale Lee']=plotCaleLee
         f.close()
     with open("src/data/output-regineAlpinist.txt",'r') as f:
         line=f.readlines()
         plotRegineAlpinist=line[-1].strip()
+        plotDictionar['regineAlpinist']=plotRegineAlpinist
         f.close()
     with open("src/data/output-regineCaiSim.txt",'r') as f:
         line=f.readlines()
         plotRegineCaiSim=line[-1].strip()
+        plotDictionar['regineCaiSim']=plotRegineCaiSim
         f.close()
     with open("src/data/output-comisVoiajorNN.txt",'r') as f:
         line=f.readlines()
         plotComisVoiajorNN=line[-1].strip()
+        plotDictionar['ComisVoiajorNN']=plotComisVoiajorNN
         f.close()
     with open("src/data/output-regineAG.txt",'r') as f:
         line=f.readlines()
         plotRegineAG=line[-1].strip()
-        f.close()   
-    plt.figure(figsize=(10,6))
-    timpi_executie=[plotCaleLee,plotRegineAlpinist,plotComisVoiajorNN,plotRegineAG,plotRegineCaiSim]
-    index=[1,2,3,4,5]
-    labels=["Cale Lee","regineAplinist","ComisVoiajorNN","regineAG","regineCaiSim"]
-    plt.bar(index,timpi_executie,tick_label=labels,width=0.3,color=['red','black'])
-    plt.xlabel('Numele algoritmului')
-    plt.ylabel('Timpul de executie (s)')
-    plt.title("Timpi de executie Algoritmi Inteligenta Artificiala")
-    plt.show()
+        plotDictionar['regineAG']=plotRegineAG
+        f.close()
+    dictionarSortat=dict(sorted(plotDictionar.items(),key=lambda item: item[1]))
+    print(dictionarSortat)    
+    # plt.figure(figsize=(10,6))
+    # timpi_executie=[plotCaleLee,plotRegineAlpinist,plotComisVoiajorNN,plotRegineAG,plotRegineCaiSim]
+    # index=[1,2,3,4,5]
+    # labels=["Cale Lee","regineAplinist","ComisVoiajorNN","regineAG","regineCaiSim"]
+    # plt.bar(index,timpi_executie,tick_label=labels,width=0.3,color=['red','black'])
+    # plt.xlabel('Numele algoritmului')
+    # plt.ylabel('Timpul de executie (s)')
+    # plt.title("Timpi de executie Algoritmi Inteligenta Artificiala")
+    # plt.show()
 
 afisareMeniu()
