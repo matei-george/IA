@@ -1,17 +1,16 @@
 from helpers import *
 import matplotlib.pyplot as plt
 import time
+import os
 
-# TODO -> Date mai mari de intrare.
-# TODO -> Reformatare text pentru finalizarea executiei programului.
-# TODO -> Implementare timer de scurta durata pentru program
 # TODO -> Dictonar cu tuple pereche titlu algoritm - valoare care sa fie create in momentul fetch-ului datelor din fisier
 # TODO -> TODO-ul anterior cu Dictionarul sortat in functie de timpul de executie
 # TODO -> Plot facut dupa elementele dictionarului
 
 def afisareMeniu():
-    print('/n/n/n/n')
     while (True):
+        os.system('cls')
+        time.sleep(1)
         print('''
    ___                            _ __     __        _______ 
   / _ )__ _____    _  _____ ___  (_) /_   / /__ _   /  _/ _ |
@@ -35,28 +34,64 @@ def selectareOptiune():
     optiune = int(input('Selectati optiunea '))
     match(optiune):
         case 1:
-            print("Executie Finalizata!")
-            print('Verifica fisierul de output pentru datele de iesire.')
+            print('Se executa...')
+            time.sleep(1)
             CaleLee.execute()
+            print('''   _____           ___          __ 
+  / __(_)__  ___ _/ (_)__ ___ _/_/ 
+ / _// / _ \/ _ `/ / /_ // _ `/ __/ 
+/_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
+            print('Verifica fisierul de output pentru datele de iesire.')
+            time.sleep(3)
         case 2:
-            print('Executie Finalizata')
-            print('Verifica fisierul de output pentru datele de iesire.')
+            print('Se executa...')
+            time.sleep(1)
             regineAlpinist.execute()
+            print('''   _____           ___          __ 
+  / __(_)__  ___ _/ (_)__ ___ _/_/ 
+ / _// / _ \/ _ `/ / /_ // _ `/ __/ 
+/_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''') 
+            print('Verifica fisierul de output pentru datele de iesire.')
+            time.sleep(3)
         case 3:
-            print("Executie Finalizata!")
-            print('Verifica fisierul de output pentru datele de iesire.')
+            print('Se executa...')
+            time.sleep(1)
             comisVoiajorNN.execute()
+            print('''   _____           ___          __ 
+  / __(_)__  ___ _/ (_)__ ___ _/_/ 
+ / _// / _ \/ _ `/ / /_ // _ `/ __/ 
+/_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
+            print('Verifica fisierul de output pentru datele de iesire.')
+            time.sleep(3)
         case 4:
-            print("Executie Finalizata!")
-            print('Verifica fisierul de output pentru datele de iesire.')
+            print('Se executa...')
+            time.sleep(1)
             regineCaiSim.execute()
-        case 5:
-            print("Executie Finalizata!")
+            print('''   _____           ___          __ 
+  / __(_)__  ___ _/ (_)__ ___ _/_/ 
+ / _// / _ \/ _ `/ / /_ // _ `/ __/ 
+/_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
             print('Verifica fisierul de output pentru datele de iesire.')
+            time.sleep(3)
+        case 5:
+            print('Se executa...')
+            time.sleep(1)
             regineAG.execute()
+            print('''   _____           ___          __ 
+  / __(_)__  ___ _/ (_)__ ___ _/_/ 
+ / _// / _ \/ _ `/ / /_ // _ `/ __/ 
+/_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
+            print('Verifica fisierul de output pentru datele de iesire.')
+            time.sleep(3)
         case 6:
-            print("Executie Finalizata!")
+            print('Se executa...')
+            time.sleep(1)
             createPlot()
+            print('''   _____           ___          __ 
+  / __(_)__  ___ _/ (_)__ ___ _/_/ 
+ / _// / _ \/ _ `/ / /_ // _ `/ __/ 
+/_/ /_/_//_/\_,_/_/_//__/\_,_/\__/''')
+            time.sleep(3)
         case 7:
             print('Murarasu Matei - George, grupa 3131b')
         case 8:

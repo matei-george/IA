@@ -77,3 +77,4 @@ def execute():
         print(shortest_path, file=f)
         print("{:.5f}".format(elapsed_time), file=f)
 
+execute()
