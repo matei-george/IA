@@ -47,11 +47,9 @@ def nearest_neighbour(adjacency_list, start_city):
 
 
 def execute():
-
     # Read the contents of the file
     with open("src/data/input-comisVoiajorNN.txt", 'r') as f:
         file_contents = f.read()
-
     adjacency_list = []
     for line in file_contents.split('\n'):
         if not line.strip():

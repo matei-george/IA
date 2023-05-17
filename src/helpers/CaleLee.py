@@ -76,5 +76,3 @@ def execute():
     with open('src/data/output-CaleLee.txt', "w") as f:
         print(shortest_path, file=f)
         print("{:.5f}".format(elapsed_time), file=f)
-
-execute()
