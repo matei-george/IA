@@ -1,0 +1,25 @@
+--- Project updates with date and changes ---
+
+> v1.3 [17.07.2023]
+    • Added bigger input data sets.
+    • Added dictionary based plot for easier implementation.
+    • Implemented sleep function in menu and algo exec for better UX.
+    • Implemented clear-screen to reduce screen cluterring.
+    • Added readme.
+
+> v1.2 [16.05.2023]
+    • Updated the regineAG algorithm.
+    • Increased size of input data select.
+    • Added plot function that shows execution time for each algorithm.
+    • Fixed exec start_time placement in multiple algorithms, not measuring correctly the exec time.
+
+> v1.1 [15.05.2023] : 
+    • Updated base project to support configured venv and python modules.
+    • Removed unnecessary modules.
+    • Organized text files into input and output.
+    • Modified python modules to allow file manipulation (reading/writing).
+    • Added visual menu with select screen.
+ 
+> v1.0 [8/9.05.2023]
+    • Added base project without complete venv config.
+    • Added algorithm solutions.
