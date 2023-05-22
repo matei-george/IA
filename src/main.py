@@ -128,6 +128,8 @@ def createPlot():
     plt.xlabel('Numele algoritmului')
     plt.ylabel('Timpul de executie (s)')
     plt.title("Timpi de executie Algoritmi Inteligenta Artificiala")
+    for i in range(len(index)):
+        plt.text(index[i], timpi_executie[i], str(timpi_executie[i]), ha='center', va='bottom')
     plt.show()
 
 afisareMeniu()
