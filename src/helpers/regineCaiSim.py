@@ -3,99 +3,69 @@ import time
 import random
 import math
 
+def read_input(filename):
+    with open(filename, 'r') as file:
+        n = int(file.readline().strip())
+        initial_state = [int(x) for x in file.readline().split()]
+    return n, initial_state
 
-class Board(object):
-    """An N-Queens solution attempt."""
+def write_output(filename, solution):
+    with open(filename, 'w') as file:
+        file.write('Queens positions: ')
+        file.write(' '.join(str(pos) for pos in solution))
 
-    def __init__(self, queens):
-        """Instances differ by their queen placements."""
-        self.queens = queens.copy()  # Not aliasing!
+def initial_state(n):
+    return [random.randint(0, n - 1) for _ in range(n)]
 
-    def display(self):
-        with open("src/data/output-regineCaiSim.txt", "w") as f:
-            for r in range(len(self.queens)): # type: ignore
-                for c in range(len(self.queens)):
-                    if self.queens[c] == r:
-                        print('Q', end=' ', file=f)
-                    else:
-                        print('-', end=' ', file=f)
-                print(file=f)
-            print(file=f)
+def compute_cost(state):
+    n = len(state)
+    cost = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            if state[i] == state[j] or abs(state[i] - state[j]) == j - i:
+                cost += 1
+    return cost
 
-    def moves(self):
-        """Return a list of possible moves given the current placements."""
-        moves = []
-        for col in range(len(self.queens)):
-            for row in range(len(self.queens)):
-                if self.queens[col] != row:
-                    moves.append((col, row))
-        return moves
+def neighbor_state(state):
+    new_state = state.copy()
+    n = len(state)
+    i = random.randint(0, n - 1)
+    j = random.randint(0, n - 1)
+    new_state[i] = j
+    return new_state
 
-    def neighbor(self, move):
-        """Return a Board instance like this one but with one move made."""
-        col, row = move
-        new_queens = self.queens.copy()
-        new_queens[col] = row
-        return Board(new_queens)
+def acceptance_probability(old_cost, new_cost, temperature):
+    if new_cost < old_cost:
+        return 1.0
+    return math.exp((old_cost - new_cost) / temperature)
 
-    def cost(self):
-        """Compute the cost of this solution."""
-        cost = 0
-        for i in range(len(self.queens)):
-            for j in range(i + 1, len(self.queens)):
-                if self.queens[i] == self.queens[j] or abs(self.queens[i] - self.queens[j]) == j - i:
-                    cost += 1
-        return cost
+def solve_nqueens(n, initial_temperature, cooling_rate):
+    current_state = initial_state(n)
+    current_cost = compute_cost(current_state)
+    temperature = initial_temperature
 
+    while current_cost > 0:
+        next_state = neighbor_state(current_state)
+        next_cost = compute_cost(next_state)
 
-class Agent(object):
-    """Knows how to solve an n-queens problem with simulated annealing."""
+        if acceptance_probability(current_cost, next_cost, temperature) > random.random():
+            current_state = next_state
+            current_cost = next_cost
 
-    def anneal(self, board):
-        """Return a list of moves to adjust queen placements."""
-        temperature = 1000.0
-        cooling_rate = 0.95
-        current_solution = board
-        while temperature > 0.1:
-            moves = current_solution.moves()
-            move = random.choice(moves)
-            neighbor = current_solution.neighbor(move)
-            current_cost = current_solution.cost()
-            neighbor_cost = neighbor.cost()
-            if neighbor_cost < current_cost:
-                current_solution = neighbor
-            else:
-                probability = math.exp(
-                    (current_cost - neighbor_cost) / temperature)
-                if random.random() < probability:
-                    current_solution = neighbor
-            temperature *= cooling_rate
-        return current_solution.moves()
+        temperature *= cooling_rate
 
+    return current_state
 
 def execute():
     start_time = time.time()
-    inputValue = None
-    with open("src/data/input-regineCaiSim.txt", "r") as f:
-        inputValue = f.read()
-        inputValue = int(inputValue)
-    queens = dict()
-    for col in range(inputValue):
-        row = random.choice(range(inputValue))
-        queens[col] = row
-
-    board = Board(queens)
-    board.display()
-
-    agent = Agent()
-    path = agent.anneal(board)
-
-    while path:
-        move = path.pop(0)
-        board = board.neighbor(move)
-        time.sleep(0.1)
-        board.display()
-    end_time = time.time()
-    elapsed_time = end_time-start_time
+    input_file = 'src\data\input-regineCaiSim.txt'
+    output_file = 'src\data\output-regineCaiSim.txt'
+    initial_temperature = 100.0
+    cooling_rate = 0.95  
+    n, initial_state = read_input(input_file)
+    solution = solve_nqueens(n, initial_temperature, cooling_rate)
+    write_output(output_file, solution)
+    end_time=time.time()
+    elapsed_time=end_time-start_time
     with open("src/data/output-regineCaiSim.txt", "a") as f:
-        print("{:.5f}".format(elapsed_time), file=f)
+        print("\n{:.5f}".format(elapsed_time), file=f)
